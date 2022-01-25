@@ -33,7 +33,7 @@ jobs:
         WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
         
     - name: Troubleshooting
-      run: pwd && ls -la && ls -la $HOME && cat ~/.wiz/test_auth.json
+      run: pwd && ls -la && ls -la $HOME && cat ~/.wiz/demo_auth.json
 
     - name: Run wiz-cli IaC scan
       run: WIZ_ENV=demo ./wizcli iac scan --path ./aws --name scotty-gh-iac-scan
