@@ -34,4 +34,4 @@ jobs:
         WIZ_ENV: ${{ secrets.WIZ_ENV }}
 
     - name: Run wiz-cli IaC scan
-      run: WIZ_ENV=test ./wizcli iac scan --path $SCAN_PATH --policy "$POLICY" --name scotty-gh-iac-scan
+      run: WIZ_ENV=test ./wizcli iac scan --path $SCAN_PATH --name scotty-gh-iac-scan
