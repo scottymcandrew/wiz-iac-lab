@@ -31,6 +31,9 @@ jobs:
       env:
         WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
         WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
+        
+    - name: Troubleshooting
+      run: pwd && ls -la
 
     - name: Run wiz-cli IaC scan
       run: WIZ_ENV=test ./wizcli iac scan --path ./aws --name scotty-gh-iac-scan
