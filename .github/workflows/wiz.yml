@@ -10,7 +10,7 @@ jobs:
     name: 'Wiz-cli IaC Scan'
     runs-on: ubuntu-latest
     env:
-      SCAN_PATH: "aws" # Set the relative path in the repo to scan
+      SCAN_PATH: "./aws" # Set the relative path in the repo to scan
       POLICY: "Default IaC policy" # Set the desired Wiz-cli policy to use
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
@@ -37,4 +37,4 @@ jobs:
       run: pwd && ls -la
 
     - name: Run wiz-cli IaC scan
-      run: WIZ_ENV=test ./wizcli iac scan --path /home/runner/work/$SCAN_PATH --policy "$POLICY --name scotty-iac-scan"
+      run: WIZ_ENV=test ./wizcli iac scan --path $SCAN_PATH --policy "$POLICY --name scotty-iac-scan"
