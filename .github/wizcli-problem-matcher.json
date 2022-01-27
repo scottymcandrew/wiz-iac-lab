@@ -13,8 +13,7 @@
                 {
                     "regexp": "\\WFile: \\w+\/(.+):(\\d+)",
                     "file": 1,
-                    "line": 2,
-                    "loop": true
+                    "line": 2
                 }
             ]
         }
