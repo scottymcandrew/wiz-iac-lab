@@ -1,0 +1,21 @@
+{
+    "problemMatcher": [
+        {
+            "owner": "wizcli-iac",
+            "pattern": [
+                {
+                    "regexp": "^Rule: (\\w+)",
+                    "message": 1
+                },
+                {
+                    "regexp": "\\WFAILED.*$"
+                },
+                {
+                    "regexp": "\\WFile: \\w+\/(.+):(\\d+)$",
+                    "file": 1,
+                    "line": 2
+                }
+            ]
+        }
+    ]
+}
