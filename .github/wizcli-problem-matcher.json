@@ -4,19 +4,18 @@
             "owner": "wizcli-iac",
             "pattern": [
                 {
-                    "regexp": "Rule: (.+)$",
+                    "regexp": "Rule: (.+)",
                     "message": 1
                 },
                 {
-                    "regexp": "\\WFAILED.*$"
+                    "regexp": "\\WFAILED.*"
                 },
                 {
-                    "regexp": "\\WFile: \\w+\/(.+):(\\d+)$",
+                    "regexp": "\\WFile: \\w+\/(.+):(\\d+)",
                     "file": 1,
                     "line": 2
                 }
-            ],
-            "severity": "warning"
+            ]
         }
     ]
 }
