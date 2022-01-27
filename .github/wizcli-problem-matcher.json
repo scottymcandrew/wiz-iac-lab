@@ -4,7 +4,7 @@
             "owner": "wizcli-iac",
             "pattern": [
                 {
-                    "regexp": "Rule: (\\.+)$",
+                    "regexp": "Rule: (.+)$",
                     "message": 1
                 },
                 {
