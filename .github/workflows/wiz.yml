@@ -36,5 +36,7 @@ jobs:
       run: echo "::add-matcher::.github/wizcli-problem-matcher.json"
 
     - name: Run wiz-cli IaC scan
-      run: WIZ_ENV=demo ./wizcli iac scan --path ./aws --policy "iac-fail-low" --name scotty-gh-iac-scan
+      run: RESULTS=$(WIZ_ENV=demo ./wizcli iac scan --path ./aws --policy "iac-fail-low" --name scotty-gh-iac-scan)
     
+    - name: Outputs
+      run: echo "::set-output name=results::$RESULTS"
