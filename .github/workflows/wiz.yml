@@ -31,10 +31,8 @@ jobs:
       env:
         WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
         WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
-    
-    - name: Add Problem Matcher
-      run: echo "::add-matcher::.github/wizcli-problem-matcher.json"
 
     - name: Run wiz-cli IaC scan
+      run: echo "::add-matcher::.github/wizcli-problem-matcher.json"
       run: WIZ_ENV=demo ./wizcli iac scan --path ./aws --policy "iac-fail-low" --name scotty-gh-iac-scan
       
