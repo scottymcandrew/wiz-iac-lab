@@ -4,7 +4,7 @@
             "owner": "wizcli-iac",
             "pattern": [
                 {
-                    "regexp": "Rule: (\\.+)",
+                    "regexp": "Rule: (\\.+)$",
                     "message": 1
                 },
                 {
@@ -15,7 +15,8 @@
                     "file": 1,
                     "line": 2
                 }
-            ]
+            ],
+            "severity": "warning"
         }
     ]
 }
