@@ -21,10 +21,10 @@ jobs:
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Check out repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Download Wiz-cli
-      run: curl -o wizcli https://wizcli.demo.wiz.io/wizcli && chmod +x wizcli
+      run: curl -o wizcli https://wizcli.app.wiz.io/latest/wizcli && chmod +x wizcli
 
     - name: Authenticate to Wiz
       run: ./wizcli auth --id "$WIZ_CLIENT_ID" --secret "$WIZ_CLIENT_SECRET"
@@ -37,6 +37,11 @@ jobs:
 
     - name: Run wiz-cli IaC scan
       run: RESULTS=$(./wizcli iac scan --path ./aws --policy "scotty-iac-monitor-only" --name scotty-gh-iac-scan --detailed > wizcli-results.json && python3 convert-to-sarif.py > results.sarif)
+
+    - uses: github/codeql-action/upload-sarif@v2
+        with:
+          # Path to SARIF file relative to the root of the repository
+          sarif_file: results.sarif
 
     - name: Outputs
       if: always()
