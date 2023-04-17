@@ -72,10 +72,12 @@ jobs:
         id: get-alerts
         uses: octokit/request-action@v2.x
         with:
-          route: GET /repos/${{ github.event.inputs.repository }}/code-scanning/alerts
+          route: GET /repos/${{ github.repository }}/code-scanning/alerts?state=open
           mediaType: application/vnd.github.scarlet-witch-preview+json
       - name: Generate Issues for Alerts
         if: ${{ steps.get-alerts.outputs.data.total_count > 0 }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           for alert in ${{ steps.get-alerts.outputs.data.alerts }}; do
             title="$(echo "$alert" | jq -r '.rule_id')"
@@ -89,5 +91,3 @@ jobs:
               "https://api.github.com/repos/$repo/issues" \
               -d "{\"title\":\"$title\",\"body\":\"$body\",\"labels\":[\"$labels\"]}"
           done
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
