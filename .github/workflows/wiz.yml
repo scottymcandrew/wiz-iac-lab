@@ -76,7 +76,7 @@ jobs:
         with:
           route: GET /repos/${{ github.repository }}/code-scanning/alerts?state=open
           # mediaType: application/vnd.github.scarlet-witch-preview+json
-      - run: "echo '${{ steps.get-alerts.outputs.data.alerts }}' | jq '.'"
+      - run: "echo '${{ steps.get-alerts.outputs.outputs.data }}' | jq '.'"
       
       - name: Generate Issues for Alerts
         if: ${{ steps.get-alerts.outputs.data.total_count > 0 }}
