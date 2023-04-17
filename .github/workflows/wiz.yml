@@ -64,7 +64,8 @@ jobs:
       uses: octokit/request-action@v2
       id: get_code_scanning_issues
       with:
-        route: GET /repos/${{ GITHUB_REPOSITORY }}/code-scanning/alerts
+        repo: ${{ GITHUB_REPOSITORY }}
+        route: GET /repos/{repo}/code-scanning/alerts
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - run: "echo '{{ steps.get_code_scanning_issues.outputs.data }}' | jq ."
