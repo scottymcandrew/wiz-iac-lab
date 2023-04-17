@@ -69,7 +69,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     # - run: "echo '${{ steps.get_code_scanning_issues.outputs.data }}' | jq '.[].number'"
     - run: |
-        for alert in ${{ steps.get_code_scanning_issues.data.alerts }}; do
+        for alert in ${{ steps.get_code_scanning_issues.outputs.data }}; do
           title="$(echo "$alert" | jq -r '.rule_id')"
           body="$(echo "$alert" | jq -r '.description')"
           labels="$(echo "$alert" | jq -r '.tool.name')"
