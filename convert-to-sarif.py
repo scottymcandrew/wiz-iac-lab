@@ -63,7 +63,7 @@ sarif_results_index = 0
 for item in wizcli_data["result"]["ruleMatches"]:
 
     # Add new list entry for rule
-    sarif_base_template['runs'][0]['tool']['driver']['rules'].append(sarif_rule_template.copy())  # Use .copy() here
+    sarif_base_template['runs'][0]['tool']['driver']['rules'].append(copy.deepcopy(sarif_rule_template))
 
     # for index, item in enumerate(wizcli_data["result"]["ruleMatches"]):
     # Setting specific variables before applying to sarif template, in case they change in future
@@ -82,8 +82,6 @@ for item in wizcli_data["result"]["ruleMatches"]:
         found_config = item_x["found"]
 
         # Add new list entry for results
-        # sarif_base_template['runs'][0]['results'].append(sarif_result_template.copy())  # Use .copy() here
-        # Using deepcopy since the nested list 'locations' was causing replication/overwriting
         sarif_base_template['runs'][0]['results'].append(copy.deepcopy(sarif_result_template))
 
         # Populate results
