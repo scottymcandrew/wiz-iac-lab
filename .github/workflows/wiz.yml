@@ -54,3 +54,17 @@ jobs:
     - name: Outputs
       if: always()
       run: echo "::set-output name=results::$RESULTS"
+
+  create-issues:
+    needs: wiz-cli-iac-scan
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: get-code-scanning-issues
+      uses: octokit/request-action@v2
+      id: get_code_scanning_issues
+      with:
+        route: GET /repos/${{ GITHUB_REPOSITORY }}/code-scanning/alerts
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - run: "echo '{{ steps.get_code_scanning_issues.outputs.data }}' | jq ."
