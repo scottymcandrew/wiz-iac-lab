@@ -38,10 +38,15 @@ jobs:
     - name: Run wiz-cli IaC scan
       run: RESULTS=$(./wizcli iac scan --path ./aws --policy "scotty-iac-monitor-only" --name scotty-gh-iac-scan --detailed > wizcli-results.json && python3 convert-to-sarif.py > results.sarif)
 
+    # - uses: actions/upload-artifact@v3
+    #   with:
+    #     name: Output SARIF REPORT
+    #     path: results.sarif
+
     - uses: github/codeql-action/upload-sarif@v2
-        with:
-          # Path to SARIF file relative to the root of the repository
-          sarif_file: results.sarif
+      with:
+        # Path to SARIF file relative to the root of the repository
+        sarif_file: results.sarif
 
     - name: Outputs
       if: always()
