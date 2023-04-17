@@ -67,4 +67,4 @@ jobs:
         route: GET /repos/${{ github.repository }}/code-scanning/alerts
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - run: "echo '{{ steps.get_code_scanning_issues.outputs.data }}' | jq ."
+    - run: "echo '${{ steps.get_code_scanning_issues.outputs.data }}' | jq ."
