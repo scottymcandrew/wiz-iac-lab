@@ -69,6 +69,8 @@ jobs:
     #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     # - run: "echo '${{ steps.get_code_scanning_issues.outputs.data }}' | jq '.[].number' > issues-list.txt"
       - name: Get Code Scanning Alerts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         id: get-alerts
         uses: octokit/request-action@v2.x
         with:
