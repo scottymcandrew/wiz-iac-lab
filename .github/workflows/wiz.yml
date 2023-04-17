@@ -68,22 +68,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     # - run: "echo '${{ steps.get_code_scanning_issues.outputs.data }}' | jq '.[].number'"
-
-      # - name: Get Code Scanning Alerts
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   id: get-alerts
-      #   uses: octokit/request-action@v2.x
-      #   with:
-      #     route: GET /repos/${{ github.repository }}/code-scanning/alerts?state=open
-      #     # mediaType: application/vnd.github.scarlet-witch-preview+json
-      # - run: "echo '${{ steps.get-alerts.outputs.outputs.data }}' | jq '.'"
-      
-    - name: Generate Issues for Alerts
-      # if: ${{ steps.get_code_scanning_issues.outputs.data.total_count > 0 }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
+    - run: |
         for alert in ${{ steps.get_code_scanning_issues.data.alerts }}; do
           title="$(echo "$alert" | jq -r '.rule_id')"
           body="$(echo "$alert" | jq -r '.description')"
@@ -96,3 +81,31 @@ jobs:
             "https://api.github.com/repos/$repo/issues" \
             -d "{\"title\":\"$title\",\"body\":\"$body\",\"labels\":[\"$labels\"]}"
         done
+
+      # - name: Get Code Scanning Alerts
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   id: get-alerts
+      #   uses: octokit/request-action@v2.x
+      #   with:
+      #     route: GET /repos/${{ github.repository }}/code-scanning/alerts?state=open
+      #     # mediaType: application/vnd.github.scarlet-witch-preview+json
+      # - run: "echo '${{ steps.get-alerts.outputs.outputs.data }}' | jq '.'"
+      
+    # - name: Generate Issues for Alerts
+    #   # if: ${{ steps.get_code_scanning_issues.outputs.data.total_count > 0 }}
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   run: |
+    #     for alert in ${{ steps.get_code_scanning_issues.data.alerts }}; do
+    #       title="$(echo "$alert" | jq -r '.rule_id')"
+    #       body="$(echo "$alert" | jq -r '.description')"
+    #       labels="$(echo "$alert" | jq -r '.tool.name')"
+    #       github_token="${{ secrets.GITHUB_TOKEN }}"
+    #       repo="${{ github.repository }}"
+    #       curl -XPOST -H "Authorization: Bearer $github_token" \
+    #         -H "Accept: application/vnd.github.symmetra-preview+json" \
+    #         -H "Content-Type: application/json" \
+    #         "https://api.github.com/repos/$repo/issues" \
+    #         -d "{\"title\":\"$title\",\"body\":\"$body\",\"labels\":[\"$labels\"]}"
+    #     done
