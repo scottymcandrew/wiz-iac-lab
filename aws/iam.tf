@@ -11,7 +11,7 @@ resource "aws_iam_user" "user" {
     git_last_modified_at = "2020-06-16 14:46:24"
     git_last_modified_by = "nimrodkor@gmail.com"
     git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_org              = "wizio"
     git_repo             = "terragoat"
     yor_trace            = "9b45b298-c1ea-426a-9644-610780021eaa"
   })

@@ -29,7 +29,7 @@ resource "aws_db_instance" "default" {
     git_last_modified_at = "2020-06-16 14:46:24"
     git_last_modified_by = "nimrodkor@gmail.com"
     git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_org              = "wizio"
     git_repo             = "terragoat"
     yor_trace            = "47c13290-c2ce-48a7-b666-1b0085effb92"
   })
@@ -55,7 +55,7 @@ resource "aws_db_option_group" "default" {
     git_last_modified_at = "2020-06-16 14:46:24"
     git_last_modified_by = "nimrodkor@gmail.com"
     git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_org              = "wizio"
     git_repo             = "terragoat"
     yor_trace            = "c8076043-5de7-4203-9a1c-b4e61900628a"
   })
@@ -87,7 +87,7 @@ resource "aws_db_parameter_group" "default" {
     git_last_modified_at = "2020-06-16 14:46:24"
     git_last_modified_by = "nimrodkor@gmail.com"
     git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_org              = "wizio"
     git_repo             = "terragoat"
     yor_trace            = "6432b3f9-3f45-4463-befc-2e0f2fbdffc1"
   })
@@ -107,7 +107,7 @@ resource "aws_db_subnet_group" "default" {
     git_last_modified_at = "2020-06-16 14:46:24"
     git_last_modified_by = "nimrodkor@gmail.com"
     git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_org              = "wizio"
     git_repo             = "terragoat"
     yor_trace            = "b8368249-50c5-4a24-bdb0-9f83d197b11c"
   })
@@ -126,7 +126,7 @@ resource "aws_security_group" "default" {
     git_last_modified_at = "2020-06-16 14:46:24"
     git_last_modified_by = "nimrodkor@gmail.com"
     git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_org              = "wizio"
     git_repo             = "terragoat"
     yor_trace            = "7b251090-8ac1-4290-bd2e-bf3e16126430"
   })
@@ -161,7 +161,7 @@ resource "aws_iam_instance_profile" "ec2profile" {
     git_last_modified_at = "2020-06-16 14:46:24"
     git_last_modified_by = "nimrodkor@gmail.com"
     git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_org              = "wizio"
     git_repo             = "terragoat"
     yor_trace            = "6d33b2b9-2dd3-4915-b5d4-283152c928f1"
   }
@@ -196,7 +196,7 @@ EOF
     git_last_modified_at = "2020-06-16 14:46:24"
     git_last_modified_by = "nimrodkor@gmail.com"
     git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_org              = "wizio"
     git_repo             = "terragoat"
     yor_trace            = "d4b631c1-c1d0-4986-affb-fb8b94a6a7a5"
   })
@@ -405,7 +405,7 @@ EOF
     git_last_modified_at = "2020-06-16 14:46:24"
     git_last_modified_by = "nimrodkor@gmail.com"
     git_modifiers        = "nimrodkor"
-    git_org              = "bridgecrewio"
+    git_org              = "wizio"
     git_repo             = "terragoat"
     yor_trace            = "f7999d4e-c983-43ee-bd88-7903a6f8483e"
   })
