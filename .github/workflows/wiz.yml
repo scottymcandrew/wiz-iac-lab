@@ -67,7 +67,7 @@ jobs:
         route: GET /repos/${{ github.repository }}/code-scanning/alerts?state=open
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - run: "echo '${{ steps.get_code_scanning_issues.outputs.data }}' | jq '.[].number'"
+    # - run: "echo '${{ steps.get_code_scanning_issues.outputs.data }}' | jq '.[].number'"
 
       # - name: Get Code Scanning Alerts
       #   env:
@@ -80,7 +80,7 @@ jobs:
       # - run: "echo '${{ steps.get-alerts.outputs.outputs.data }}' | jq '.'"
       
     - name: Generate Issues for Alerts
-      if: ${{ steps.get_code_scanning_issues.outputs.data.total_count > 0 }}
+      # if: ${{ steps.get_code_scanning_issues.outputs.data.total_count > 0 }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
