@@ -36,10 +36,7 @@ jobs:
       run: echo "::add-matcher::.github/wizcli-problem-matcher.json"
 
     - name: Run wiz-cli IaC scan
-      run: RESULTS=$(WIZ_ENV=demo ./wizcli iac scan --path ./aws --policy "iac-fail-low" --name scotty-gh-iac-scan --detailed > wizcli-results.json)
-
-    - name: Convert to SARIF
-      run: python3 convert-to-sarif.py > results.sarif
+      run: RESULTS=$(./wizcli iac scan --path ./aws --policy "iac-fail-low" --name scotty-gh-iac-scan --detailed > wizcli-results.json && python3 convert-to-sarif.py > results.sarif)
 
     - name: Outputs
       if: always()
