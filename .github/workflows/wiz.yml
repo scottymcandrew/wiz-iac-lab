@@ -60,11 +60,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: get-code-scanning-issues
-      uses: octokit/request-action@v2.1.7
-      id: get_code_scanning_issues
-      with:
-        route: GET /repos/${{ github.repository }}/code-scanning/alerts?state=open
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - run: "echo '${{ steps.get_code_scanning_issues.outputs.data }}' | jq ."
+    # - name: get-code-scanning-issues
+    #   uses: octokit/request-action@v2.1.7
+    #   id: get_code_scanning_issues
+    #   with:
+    #     route: GET /repos/${{ github.repository }}/code-scanning/alerts?state=open
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # - run: "echo '${{ steps.get_code_scanning_issues.outputs.data }}' | jq '.[].number' > issues-list.txt"
+      - name: Get Code Scanning Alerts
+        id: get-alerts
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/${{ github.event.inputs.repository }}/code-scanning/alerts
+          mediaType: application/vnd.github.scarlet-witch-preview+json
+      - name: Generate Issues for Alerts
+        if: ${{ steps.get-alerts.outputs.data.total_count > 0 }}
+        run: |
+          for alert in ${{ steps.get-alerts.outputs.data.alerts }}; do
+            title="$(echo "$alert" | jq -r '.rule_id')"
+            body="$(echo "$alert" | jq -r '.description')"
+            labels="$(echo "$alert" | jq -r '.tool.name')"
+            github_token="${{ secrets.GITHUB_TOKEN }}"
+            repo="${{ github.event.inputs.repository }}"
+            curl -XPOST -H "Authorization: Bearer $github_token" \
+              -H "Accept: application/vnd.github.symmetra-preview+json" \
+              -H "Content-Type: application/json" \
+              "https://api.github.com/repos/$repo/issues" \
+              -d "{\"title\":\"$title\",\"body\":\"$body\",\"labels\":[\"$labels\"]}"
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
