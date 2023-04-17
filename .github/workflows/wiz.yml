@@ -61,7 +61,7 @@ jobs:
 
     steps:
     - name: get-code-scanning-issues
-      uses: octokit/request-action@v2
+      uses: octokit/request-action@v2.1.7
       id: get_code_scanning_issues
       with:
         repo: ${{ vars.GITHUB_REPOSITORY }}
