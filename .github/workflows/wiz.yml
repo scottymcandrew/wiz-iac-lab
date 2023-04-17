@@ -76,12 +76,8 @@ jobs:
         with:
           route: GET /repos/${{ github.repository }}/code-scanning/alerts?state=open
           # mediaType: application/vnd.github.scarlet-witch-preview+json
-      - name: Generate Issues for Alerts
-        if: ${{ steps.get-alerts.outputs.data.total_count > 0 }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          for alert in ${{ steps.get-alerts.outputs.data.alerts }}; do
+      - run: |
+            for alert in ${{ steps.get-alerts.outputs.data.alerts }}; do
             title="$(echo "$alert" | jq -r '.rule_id')"
             body="$(echo "$alert" | jq -r '.description')"
             labels="$(echo "$alert" | jq -r '.tool.name')"
@@ -92,4 +88,21 @@ jobs:
               -H "Content-Type: application/json" \
               "https://api.github.com/repos/$repo/issues" \
               -d "{\"title\":\"$title\",\"body\":\"$body\",\"labels\":[\"$labels\"]}"
-          done
+            done
+      # - name: Generate Issues for Alerts
+      #   if: ${{ steps.get-alerts.outputs.data.total_count > 0 }}
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
+          # for alert in ${{ steps.get-alerts.outputs.data.alerts }}; do
+          #   title="$(echo "$alert" | jq -r '.rule_id')"
+          #   body="$(echo "$alert" | jq -r '.description')"
+          #   labels="$(echo "$alert" | jq -r '.tool.name')"
+          #   github_token="${{ secrets.GITHUB_TOKEN }}"
+          #   repo="${{ github.event.inputs.repository }}"
+          #   curl -XPOST -H "Authorization: Bearer $github_token" \
+          #     -H "Accept: application/vnd.github.symmetra-preview+json" \
+          #     -H "Content-Type: application/json" \
+          #     "https://api.github.com/repos/$repo/issues" \
+          #     -d "{\"title\":\"$title\",\"body\":\"$body\",\"labels\":[\"$labels\"]}"
+          # done
