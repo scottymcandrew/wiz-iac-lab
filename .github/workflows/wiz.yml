@@ -36,10 +36,11 @@ jobs:
       run: echo "::add-matcher::.github/wizcli-problem-matcher.json"
 
     - name: Run wiz-cli IaC scan
-      run: RESULTS=$(./wizcli iac scan --path ./aws --policy "scotty-iac-monitor-only" --name scotty-gh-iac-scan --detailed > wizcli-results.json)
+      # run: RESULTS=$(./wizcli iac scan --path ./aws --policy "scotty-iac-monitor-only" --name scotty-gh-iac-scan --detailed > wizcli-results.json)
+      run: ./wizcli iac scan --path ./aws --policy "scotty-iac-monitor-only" --name scotty-gh-iac-scan --format sarif > results.sarif)
 
-    - name: Convert to sarif
-      run: python3 convert-to-sarif.py > results.sarif
+    # - name: Convert to sarif
+    #   run: python3 convert-to-sarif.py > results.sarif
 
     # - uses: actions/upload-artifact@v3
     #   with:
