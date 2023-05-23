@@ -37,7 +37,7 @@ jobs:
 
     - name: Run wiz-cli IaC scan
       # run: RESULTS=$(./wizcli iac scan --path ./aws --policy "scotty-iac-monitor-only" --name scotty-gh-iac-scan --detailed > wizcli-results.json)
-      run: ./wizcli iac scan --path ./aws --policy "scotty-iac-monitor-only" --name scotty-gh-iac-scan --format sarif > results.sarif)
+      run: ./wizcli iac scan --path ./aws --policy "scotty-iac-monitor-only" --name scotty-gh-iac-scan --format sarif > results.sarif
 
     # - name: Convert to sarif
     #   run: python3 convert-to-sarif.py > results.sarif
@@ -56,26 +56,26 @@ jobs:
       if: always()
       run: echo "::set-output name=results::$RESULTS"
 
-  create-issues:
-    needs: wiz-cli-iac-scan
-    runs-on: ubuntu-latest
+#   create-issues:
+#     needs: wiz-cli-iac-scan
+#     runs-on: ubuntu-latest
 
-    steps:
-    - name: get-code-scanning-issues
-      uses: octokit/request-action@v2.x
-      id: get_code_scanning_issues
-      with:
-        route: GET /repos/${{ github.repository }}/code-scanning/alerts?state=open
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    # - run: "echo '${{ steps.get_code_scanning_issues.outputs.data }}' | jq '.[].number'"
-    - run: |
-        echo "${{ steps.get_code_scanning_issues.outputs.data }}" | jq -c '.[]' | while IFS= read -r alert; do
-          title=$(echo "${alert}" | jq -r '.rule.id')
-          severity=$(echo "${alert}" | jq -r '.rule.severity')
-          name=$(echo "${alert}" | jq -r '.rule.name')
-          printf "'%s' '%s' '%s'\n" "$title" "$severity" "$name"
-        done
+#     steps:
+#     - name: get-code-scanning-issues
+#       uses: octokit/request-action@v2.x
+#       id: get_code_scanning_issues
+#       with:
+#         route: GET /repos/${{ github.repository }}/code-scanning/alerts?state=open
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#     # - run: "echo '${{ steps.get_code_scanning_issues.outputs.data }}' | jq '.[].number'"
+#     - run: |
+#         echo "${{ steps.get_code_scanning_issues.outputs.data }}" | jq -c '.[]' | while IFS= read -r alert; do
+#           title=$(echo "${alert}" | jq -r '.rule.id')
+#           severity=$(echo "${alert}" | jq -r '.rule.severity')
+#           name=$(echo "${alert}" | jq -r '.rule.name')
+#           printf "'%s' '%s' '%s'\n" "$title" "$severity" "$name"
+#         done
         
 
       # - name: Get Code Scanning Alerts
