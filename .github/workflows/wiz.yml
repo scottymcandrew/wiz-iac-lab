@@ -23,8 +23,8 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v3
 
-    - name: Download Wiz-cli & utils
-      run: curl -o wizcli https://wizcli.app.wiz.io/latest/wizcli && chmod +x wizcli && curl -o convert-to-sarif.py https://storage.googleapis.com/scotty-wiz/convert-to-sarif.py
+    # - name: Download Wiz-cli & utils
+    #   run: curl -o wizcli https://wizcli.app.wiz.io/latest/wizcli && chmod +x wizcli && curl -o convert-to-sarif.py https://storage.googleapis.com/scotty-wiz/convert-to-sarif.py
 
     - name: Authenticate to Wiz
       run: ./wizcli auth --id "$WIZ_CLIENT_ID" --secret "$WIZ_CLIENT_SECRET"
@@ -32,12 +32,12 @@ jobs:
         WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
         WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
     
-    - name: Add Problem Matcher
-      run: echo "::add-matcher::.github/wizcli-problem-matcher.json"
+    # - name: Add Problem Matcher
+    #   run: echo "::add-matcher::.github/wizcli-problem-matcher.json"
 
     - name: Run wiz-cli IaC scan
       # run: RESULTS=$(./wizcli iac scan --path ./aws --policy "scotty-iac-monitor-only" --name scotty-gh-iac-scan --detailed > wizcli-results.json)
-      run: ./wizcli iac scan --path ./aws --policy "scotty-iac-monitor-only" --name scotty-gh-iac-scan --format sarif > results.sarif
+      run: ./wizcli iac scan --path ./aws --policy "scotty-iac-monitor-only" --tag image-name=${{ vars.IMAGE_NAME }} --tag repo=$GITHUB_REPOSITORY --tag repo-owner=$GITHUB_REPOSITORY_OWNER --name scotty-gh-iac-scan --format sarif > results.sarif
 
     # - name: Convert to sarif
     #   run: python3 convert-to-sarif.py > results.sarif
