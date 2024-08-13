@@ -37,7 +37,7 @@ jobs:
 
     - name: Run wiz-cli IaC scan
       # run: RESULTS=$(./wizcli iac scan --path ./aws --policy "scotty-iac-monitor-only" --name scotty-gh-iac-scan --detailed > wizcli-results.json)
-      run: ./wizcli iac scan --path ./aws --policy "scotty-iac-monitor-only" --tag image-name=${{ vars.IMAGE_NAME }} --tag repo=$GITHUB_REPOSITORY --tag repo-owner=$GITHUB_REPOSITORY_OWNER --name scotty-gh-iac-scan --format sarif > results.sarif
+      run: ./wizcli iac scan --path ./aws --policy "scotty-global-iac" --tag image-name=${{ vars.IMAGE_NAME }} --tag repo=$GITHUB_REPOSITORY --tag repo-owner=$GITHUB_REPOSITORY_OWNER --name scotty-gh-iac-scan --format sarif > results.sarif
 
     # - name: Convert to sarif
     #   run: python3 convert-to-sarif.py > results.sarif
