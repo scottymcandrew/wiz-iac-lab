@@ -23,8 +23,8 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v3
 
-    # - name: Download Wiz-cli & utils
-    #   run: curl -o wizcli https://wizcli.app.wiz.io/latest/wizcli && chmod +x wizcli && curl -o convert-to-sarif.py https://storage.googleapis.com/scotty-wiz/convert-to-sarif.py
+    - name: Download Wiz-cli & utils
+      run: curl -o wizcli https://wizcli.app.wiz.io/latest/wizcli && chmod +x wizcli
 
     - name: Authenticate to Wiz
       run: ./wizcli auth --id "$WIZ_CLIENT_ID" --secret "$WIZ_CLIENT_SECRET"
